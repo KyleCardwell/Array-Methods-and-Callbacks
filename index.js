@@ -85,15 +85,17 @@ hint: the strings returned need to exactly match the string in step 4.
  */
 
 function getWinnersByYear(arr, getYearsCB, getWinnersCB) {
-    // let strArr = [];
+    const strArr = [];
+    const years = getYearsCB(arr, getFinals);
+    const winners = getWinnersCB(arr, getFinals);
 
-    // for (let i = 0; i < getYearsCB(arr).length; i++) {
-    //     strArr.push(`In ${getYearsCB(arr)[i]}, ${getWinnersCB(arr)[i]} won the world cup!`)
-    // }
-    // return strArr;
+    for (let i = 0; i < years.length; i++) {
+        strArr.push(`In ${years[i]}, ${winners[i]} won the world cup!`)
+    }
+    return strArr;
 }
 
-// console.log(getWinnersByYear(fifaData,getYears,getWinners));
+console.log(getWinnersByYear(fifaData,getYears,getWinners));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher order function getAverageGoals to do the following: 
@@ -105,11 +107,14 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+function getAverageGoals(getFinalsCB) {
+   const homeAvg = getFinalsCB.reduce((acc, i) => acc += i["Home Team Goals"], 0) / getFinalsCB.length;
+   const awayAvg = getFinalsCB.reduce((acc, i) => acc += i["Away Team Goals"], 0) / getFinalsCB.length;
+
+   return ((homeAvg + awayAvg) /getFinals.length).toFixed(2);
 }
 
-
+console.log(getAverageGoals(getFinals(fifaData)));
 
 
 /// 🥅 STRETCH 🥅 ///
